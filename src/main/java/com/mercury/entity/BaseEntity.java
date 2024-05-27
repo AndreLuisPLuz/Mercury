@@ -1,8 +1,9 @@
 package com.mercury.entity;
 
-import javax.persitance;
 import java.util.Date;
 import java.time.*;
+import javax.persistence.*;
+
 
 public abstract class BaseEntity {
     @Id
