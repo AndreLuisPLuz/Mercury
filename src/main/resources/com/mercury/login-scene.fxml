@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mercury.controllers.LoginSceneController">
+   <children>
+      <Pane prefHeight="514.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="282.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" />
+            <Button fx:id="btnOia" layoutX="230.0" layoutY="283.0" mnemonicParsing="false" onAction="#nextPage" text="Button" />
+         </children>
+      </Pane>
+   </children>
+</VBox>
