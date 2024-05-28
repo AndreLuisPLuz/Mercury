@@ -3,7 +3,7 @@ package com.mercury.entity;
 import java.util.Date;
 import javax.persistence.*;
 
-
+@MappedSuperclass
 public abstract class BaseEntity {
     @Id
     @GeneratedValue

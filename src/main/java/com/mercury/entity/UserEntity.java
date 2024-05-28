@@ -5,8 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserData")
-
+@Table(name = "UserEntity")
 public class UserEntity extends BaseEntity {
 
     @Column (name = "Username")
@@ -52,6 +51,7 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
     
-    
-    
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s", getCreatedAt().toString(), getUpdatedAt().toString(), getEmail(), getPassword(), getUsername());
+    }
 }
