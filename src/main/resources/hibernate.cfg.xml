@@ -28,5 +28,9 @@
  
         <!-- Exemplo de mapping -->
         <mapping class="com.mercury.entity.UserEntity"/>
+        <mapping class="com.mercury.entity.ProjectEntity"/>
+        <mapping class="com.mercury.entity.CollectionEntity"/>
+        <mapping class="com.mercury.entity.NodeEntity"/>
+        <mapping class="com.mercury.entity.RequestEntity"/>
     </session-factory>
 </hibernate-configuration>
