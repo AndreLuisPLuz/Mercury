@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mercury.controllers.HomeSceneController">
    <children>
       <Pane prefHeight="871.0" prefWidth="1039.0">
          <children>
-            <Text layoutX="502.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOME" />
+            <Button fx:id="btnTest" layoutX="510.0" layoutY="308.0" mnemonicParsing="false" onAction="#initializeEvent" text="Button" />
          </children></Pane>
    </children>
 </VBox>

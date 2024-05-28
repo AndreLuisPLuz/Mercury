@@ -1,20 +1,23 @@
 package com.mercury.controllers;
 
-import com.mercury.enums.Page;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.TextField;
 
 public class LoginSceneController {
     
     @FXML
-    protected Button btnOia;
+    private TextField tfUsername;
 
     @FXML
-    protected void nextPage(ActionEvent e) throws Exception {
-        Stage currentStage = (Stage)btnOia.getScene().getWindow();
-        currentStage.setScene(Page.HOME.loadScene());
+    private TextField tfPassword;
+
+    @FXML
+    private Button btLogin;
+
+    @FXML
+    void submitLogin(ActionEvent event) {
+        
     }
 }
