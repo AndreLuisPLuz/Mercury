@@ -32,17 +32,20 @@ public enum Page {
     public <T> Scene loadScene(Consumer<T> consumer) {
         URL url = App.class.getResource(filepath);
         FXMLLoader loader = new FXMLLoader(url);
-
-        T controller = loader.getController();
-        consumer.accept(controller);
-
+        Scene scene;
+        
         try {
-            return new Scene(loader.load());
+            scene = new Scene(loader.load());
         }
         catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
+
+        T controller = loader.getController();
+        consumer.accept(controller);
+
+        return scene;
     }
 
     Page(String path) {
