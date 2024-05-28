@@ -15,6 +15,9 @@ public class LoginSceneController {
     @FXML
     protected void nextPage(ActionEvent e) throws Exception {
         Stage currentStage = (Stage)btnOia.getScene().getWindow();
-        currentStage.setScene(Page.HOME.loadScene());
+
+        currentStage.setScene(Page.HOME.loadScene((HomeSceneController n) -> {
+            n.test = "123";
+        }));
     }
 }
