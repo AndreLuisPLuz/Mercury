@@ -1,5 +1,11 @@
 package com.mercury;
 
+import javax.management.Query;
+
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,5 +22,7 @@ public class App extends Application {
         // primaryStage.show();
 
         System.out.println("Maven cretino");
+
+        
     }
 }
