@@ -16,4 +16,5 @@ public class App extends Application {
         primaryStage.setScene(Page.LOGIN.loadScene());
         primaryStage.show();
     }
+
 }
