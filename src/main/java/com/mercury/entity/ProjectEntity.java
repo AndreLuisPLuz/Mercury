@@ -14,10 +14,45 @@ public class ProjectEntity extends BaseEntity{
     @JoinColumn(name = "UserId")
     private UserEntity userEntity;
 
+
     @Column (name = "ProjectName")
     private String userId;
-
+    
+    
     @Column (name = "Description")
     private String description;    
     
+    
+    public ProjectEntity(UserEntity userEntity, String userId, String description)
+    {
+        super();
+        
+        this.userEntity = userEntity;
+        this.userId = userId;
+        this.description = description;        
+    }
+    
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+    
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+    
+    public String getUserId() {
+        return userId;
+    }
+    
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

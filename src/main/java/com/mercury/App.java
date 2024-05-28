@@ -7,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import javafx.application.Application;
+import com.mercury.*;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,7 +23,11 @@ public class App extends Application {
         // primaryStage.setScene(scene);
         // primaryStage.show();
 
-        System.out.println("Maven cretino");
+        System.out.println(Authentification.tryLogin("nilt", "1234"));
+        
+    
+
+        
 
         
     }
