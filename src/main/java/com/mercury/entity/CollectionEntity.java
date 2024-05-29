@@ -1,18 +1,20 @@
 package com.mercury.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "CollectionData")
-
+@Table(name = "CollectionEntity")
 public class CollectionEntity extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "ProjectId")
-    private ProjectEntity projectEntity;
+    @JoinColumn(name = "ProjectId", nullable = false)
+    private ProjectEntity project;
     
     @Column(name = "Name")
     private String name;
@@ -20,20 +22,22 @@ public class CollectionEntity extends BaseEntity {
     @Column(name = "EnvironmentJson", length=2000)
     private String environmentJson;
     
-    
+    @OneToMany(mappedBy = "collection")
+    private Set<NodeEntity> nodes;
+
     public CollectionEntity(ProjectEntity projectEntity, String name, String environmentJson)
     {
-        this.projectEntity = projectEntity;
+        this.project = projectEntity;
         this.name = name;
         this.environmentJson = environmentJson;
     }
     
-    public ProjectEntity getProjectEntity() {
-        return projectEntity;
+    public ProjectEntity getProject() {
+        return project;
     }
     
-    public void setProjectEntity(ProjectEntity projectEntity) {
-        this.projectEntity = projectEntity;
+    public void setProject(ProjectEntity projectEntity) {
+        this.project = projectEntity;
     }
     
     public String getName() {
@@ -47,7 +51,12 @@ public class CollectionEntity extends BaseEntity {
     public void setEnvironmentJson(String environmentJson) {
         this.environmentJson = environmentJson;
     }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<NodeEntity> getNodes() {
+        return nodes;
     }
 }

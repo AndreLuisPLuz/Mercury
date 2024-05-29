@@ -1,69 +1,51 @@
 package com.mercury.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "NodeData")
-
+@Table(name = "NodeEntity")
 public class NodeEntity extends BaseEntity{
     @ManyToOne
-    @JoinColumn(name = "CollectorId")
-    private CollectionEntity collectionEntity;
+    @JoinColumn(name = "CollectionId")
+    private CollectionEntity collection;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RequestId", referencedColumnName = "Id", nullable = true)
+    private RequestEntity request;
     
     @OneToOne
-    @JoinColumn(name ="ParentNodeId", nullable = true)
-    private NodeEntity nodeEntity;
-    
-    @OneToMany
-    @JoinColumn(name = "RequestId")
-    private RequestEntity requestEntity;
+    @JoinColumn(name = "parentNodeId", nullable = true)
+    private NodeEntity parentNode;
+
+    @OneToOne(mappedBy = "parentNode")
+    private NodeEntity childNode;
     
     @Column(name = "name")
     private String name;
     
-    
     @Column(name = "Type")
     private Boolean type;
     
-    public NodeEntity(CollectionEntity collectionEntity, NodeEntity nodeEntity, RequestEntity requestEntity, String name,  Boolean type)
-    {
+    public NodeEntity(CollectionEntity collectionEntity, String name,  Boolean type) {
         super();
         
-        this.collectionEntity = collectionEntity;
-        this.nodeEntity = nodeEntity;
-        this.requestEntity = requestEntity;
+        this.collection = collectionEntity;
         this.name = name;
         this.type = type;
     }
     
-    public CollectionEntity getCollectionEntity() {
-        return collectionEntity;
+    public CollectionEntity getCollection() {
+        return collection;
     }
     
-    public void setCollectionEntity(CollectionEntity collectionEntity) {
-        this.collectionEntity = collectionEntity;
-    }
-    
-    public NodeEntity getNodeEntity() {
-        return nodeEntity;
-    }
-    
-    public void setNodeEntity(NodeEntity nodeEntity) {
-        this.nodeEntity = nodeEntity;
-    }
-    
-    public RequestEntity getRequestEntity() {
-        return requestEntity;
-    }
-    
-    public void setRequestEntity(RequestEntity requestEntity) {
-        this.requestEntity = requestEntity;
+    public void setCollection(CollectionEntity collectionEntity) {
+        this.collection = collectionEntity;
     }
     
     public String getName() {
