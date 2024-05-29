@@ -1,5 +1,7 @@
 package com.mercury.controllers;
 
+import com.mercury.enums.Page;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
