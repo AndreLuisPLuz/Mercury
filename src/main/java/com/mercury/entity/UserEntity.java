@@ -21,6 +21,8 @@ public class UserEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private Set<ProjectEntity> projects;
+
+    public UserEntity() {}
     
     public UserEntity(String username, String email, String password) {
         super();

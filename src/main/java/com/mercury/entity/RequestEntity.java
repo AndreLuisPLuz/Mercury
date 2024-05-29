@@ -17,8 +17,10 @@ public class RequestEntity extends BaseEntity {
     @Column(name = "Nickname")
     private String nickname;
     
-    @Column(name = "ContentJson", length = 65535)
+    @Column(name = "ContentJson", length = 8000)
     private String contentJson;
+
+    public RequestEntity() { }
     
     public RequestEntity(String verb, String nickname, String contentJson) {
         super();

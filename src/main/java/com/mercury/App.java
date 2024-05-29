@@ -5,18 +5,18 @@ import javafx.stage.Stage;
 
 import com.mercury.entity.UserEntity;
 import com.mercury.enums.Page;
-import com.mercury.repository.BaseRepository;
+import com.mercury.repository.Repository;
 
 
 public class App extends Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // launch(args);
-        BaseRepository<UserEntity> repo = new BaseRepository<>(UserEntity.class);
+        Repository<UserEntity> repo = new Repository<>(UserEntity.class);
         try {
             UserEntity user = repo.select(Long.parseLong("1")).get();
             System.out.println(user.toString());
         } catch (Exception e) {
-            System.out.println("torxa kkkk");
+            throw e;
         }
     }
 

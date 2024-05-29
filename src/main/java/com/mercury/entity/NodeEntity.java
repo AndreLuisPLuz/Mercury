@@ -31,6 +31,8 @@ public class NodeEntity extends BaseEntity{
     
     @Column(name = "Type")
     private Boolean type;
+
+    public NodeEntity() { }
     
     public NodeEntity(CollectionEntity collectionEntity, String name,  Boolean type) {
         super();

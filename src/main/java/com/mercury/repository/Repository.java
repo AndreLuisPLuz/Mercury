@@ -13,11 +13,11 @@ import org.hibernate.Query;
 import com.mercury.entity.BaseEntity;
 import com.mercury.interfaces.IRepository;
 
-public class BaseRepository<T extends BaseEntity> implements IRepository<T> {
+public class Repository<T extends BaseEntity> implements IRepository<T> {
     private static final SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
     private Class<T> type;
 
-    public BaseRepository(Class<T> type) {
+    public Repository(Class<T> type) {
         this.type = type;
     }
 
@@ -47,6 +47,8 @@ public class BaseRepository<T extends BaseEntity> implements IRepository<T> {
         return CompletableFuture.supplyAsync(() -> {
             Session session = sf.openSession();
             Transaction transaction = session.beginTransaction();
+
+            System.out.println("Id que entrou:" + id.toString());
     
             try {
                 Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", type.getName()));
@@ -59,10 +61,9 @@ public class BaseRepository<T extends BaseEntity> implements IRepository<T> {
             } catch (Exception e) {
                 if (transaction != null) {
                     transaction.rollback();
+                    session.close();
                 }
                 throw new RuntimeException(e);
-            } finally {
-                session.close();
             }
         });
     }

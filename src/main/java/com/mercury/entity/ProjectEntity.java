@@ -24,6 +24,8 @@ public class ProjectEntity extends BaseEntity{
     
     @OneToMany(mappedBy = "project")
     private Set<CollectionEntity> collections;
+
+    public ProjectEntity() { }
     
     public ProjectEntity(UserEntity userEntity, String userId, String description)
     {

@@ -25,6 +25,8 @@ public class CollectionEntity extends BaseEntity {
     @OneToMany(mappedBy = "collection")
     private Set<NodeEntity> nodes;
 
+    public CollectionEntity() { }
+
     public CollectionEntity(ProjectEntity projectEntity, String name, String environmentJson)
     {
         this.project = projectEntity;
