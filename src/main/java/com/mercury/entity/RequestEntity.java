@@ -2,31 +2,32 @@ package com.mercury.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "RequestData")
-
+@Table(name = "RequestEntity")
 public class RequestEntity extends BaseEntity {
+    @OneToOne(mappedBy = "request")
+    private NodeEntity node;
+
     @Column(name = "Verb")
     private String verb;
-
     
     @Column(name = "Nickname")
     private String nickname;
     
-    @Column(name = "ContentJason", length = 65535)
+    @Column(name = "ContentJson", length = 8000)
     private String contentJson;
+
+    public RequestEntity() { }
     
-    
-    public RequestEntity(String verb, String nickname, String contentJson)
-    {
+    public RequestEntity(String verb, String nickname, String contentJson) {
         super();
         
         this.verb = verb;
         this.nickname = nickname;
         this.contentJson = contentJson;
-        
     }
     
     public String getVerb() {

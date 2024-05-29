@@ -1,43 +1,47 @@
 package com.mercury.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ProjectData")
-
+@Table(name = "ProjectEntity")
 public class ProjectEntity extends BaseEntity{
     @ManyToOne
-    @JoinColumn(name = "UserId")
-    private UserEntity userEntity;
-
+    @JoinColumn(name = "UserId", nullable = false)
+    private UserEntity user;
 
     @Column (name = "ProjectName")
     private String userId;
     
-    
     @Column (name = "Description")
-    private String description;    
+    private String description; 
     
+    @OneToMany(mappedBy = "project")
+    private Set<CollectionEntity> collections;
+
+    public ProjectEntity() { }
     
     public ProjectEntity(UserEntity userEntity, String userId, String description)
     {
         super();
         
-        this.userEntity = userEntity;
+        this.user = userEntity;
         this.userId = userId;
         this.description = description;        
     }
     
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public UserEntity getUser() {
+        return user;
     }
     
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUser(UserEntity userEntity) {
+        this.user = userEntity;
     }
     
     public String getUserId() {
@@ -54,5 +58,9 @@ public class ProjectEntity extends BaseEntity{
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<CollectionEntity> getCollections() {
+        return collections;
     }
 }

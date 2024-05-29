@@ -1,14 +1,15 @@
 package com.mercury.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "UserData")
-
+@Table(name = "UserEntity")
 public class UserEntity extends BaseEntity {
-
     @Column (name = "Username")
     private String username;
 
@@ -17,9 +18,13 @@ public class UserEntity extends BaseEntity {
     
     @Column (name = "Password")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ProjectEntity> projects;
+
+    public UserEntity() {}
     
-    public UserEntity(String username, String email, String password)
-    {
+    public UserEntity(String username, String email, String password) {
         super();
         
         this.username = username;
@@ -30,7 +35,6 @@ public class UserEntity extends BaseEntity {
     public String getUsername() {
         return username;
     }
-    
     
     public void setUsername(String username) {
         this.username = username;
@@ -47,11 +51,16 @@ public class UserEntity extends BaseEntity {
     public String getPassword() {
         return password;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
     
-    
-    
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s", getCreatedAt().toString(), getUpdatedAt().toString(), getEmail(), getPassword(), getUsername());
+    }
+
+    public Set<ProjectEntity> getProjects() {
+        return projects;
+    }
 }
