@@ -14,13 +14,19 @@ import javafx.scene.control.Button;
 
 public class HomeSceneController {
     
-    protected Long user = 0L;
+    protected UserEntity user;
     protected Repository<ProjectEntity> repository = new Repository(ProjectEntity.class);
-    protected CompletableFuture<ProjectEntity> projects;
+    protected List<ProjectEntity> projects;
 
     @FXML
     protected void initialize()
     {
-        this.projects = repository.select(user);
+        try{
+            this.projects = repository.selectMany().get();
+        }
+        catch(Exception e){
+            System.out.println("Você foi pimbado");
+        }
+        
     }
 }
