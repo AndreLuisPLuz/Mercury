@@ -1,5 +1,6 @@
 package com.mercury.controllers;
 
+import com.mercury.entity.UserEntity;
 import com.mercury.enums.Page;
 import com.mercury.repository.Repository;
 import com.mercury.services.UserService;
@@ -31,7 +32,7 @@ public class LoginSceneController {
     }
 
     @FXML
-    private void btLoginClick(ActionEvent e) {
+    private void btLoginClick(ActionEvent e) throws Exception {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
 
@@ -42,12 +43,21 @@ public class LoginSceneController {
         } catch (Exception ex) {
             isValidLogin = false;
         }
-
+        
         if (isValidLogin) {
             Stage stage = (Stage)btLogin.getScene().getWindow();
             stage.setScene(Page.HOME.loadScene((HomeSceneController e) -> {
-                e.
+                UserEntity user;
+                try {
+                    user = uService.getUserByUsername(username).get();
+                } catch (Exception ex) {
+                    throw new Exception(ex);
+                }
+
+                e.user = user;
             }));
+        } else {
+            
         }
     }
 }
