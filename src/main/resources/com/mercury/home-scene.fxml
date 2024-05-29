@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="836.0" prefWidth="1039.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mercury.controllers.HomeSceneController">
    <children>
       <GridPane prefHeight="840.0" prefWidth="1039.0" style="-fx-background-color: #ff;">
@@ -23,10 +22,7 @@
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #001845;" GridPane.columnIndex="1">
                <children>
-                  <Pane layoutX="570.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #001845; -fx-border-color: #ffff;" />
                   <TextField layoutX="72.0" layoutY="58.0" prefHeight="25.0" prefWidth="698.0" style="-fx-background-color: #ff;" />
-                  <Pane layoutX="321.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #001845; -fx-border-color: #ffff;" />
-                  <Pane layoutX="72.0" layoutY="120.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #001845; -fx-border-color: #ffff;" />
                   <Label layoutX="72.0" layoutY="31.0" />
                   <Label layoutX="72.0" layoutY="24.0" text="Search" textFill="#979dac">
                      <font>

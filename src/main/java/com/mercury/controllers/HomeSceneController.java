@@ -11,6 +11,7 @@ import com.mercury.repository.Repository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 
 public class HomeSceneController {
     
@@ -27,6 +28,11 @@ public class HomeSceneController {
         catch(Exception e){
             System.out.println("Você foi pimbado");
         }
+
+        BorderPane pane = new BorderPane();
+        
+
+
         
     }
 }
