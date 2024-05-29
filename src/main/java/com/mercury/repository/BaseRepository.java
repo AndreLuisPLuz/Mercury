@@ -2,7 +2,6 @@ package com.mercury.repository;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Supplier;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,131 +12,135 @@ import org.hibernate.Query;
 
 import com.mercury.entity.BaseEntity;
 import com.mercury.interfaces.IRepository;
-import com.mercury.types.TypeToken;
 
 public class BaseRepository<T extends BaseEntity> implements IRepository<T> {
     private static final SessionFactory sf = new AnnotationConfiguration().configure().buildSessionFactory();
-    private TypeToken<T> type;
+    private Class<T> type;
 
-    public BaseRepository() { }
+    public BaseRepository(Class<T> type) {
+        this.type = type;
+    }
 
-    public CompletableFuture<T> create(T entity) throws Exception {
+    public CompletableFuture<T> create(T entity) {
         if (entity == null)
             throw new IllegalArgumentException("Entity cannot be null on creation.");
 
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
 
-        try {
-            session.save(entity);
-            transaction.commit();
-        } catch (HibernateException he) {
-            transaction.rollback();
-            throw new Exception("Entity could not be saved.");
-        }
+            try {
+                session.save(entity);
+                transaction.commit();
 
-        return CompletableFuture.supplyAsync(() -> entity);
+                return entity;
+            } catch (HibernateException he) {
+                transaction.rollback();
+                throw new RuntimeException("Entity could not be saved.");
+            } finally {
+                session.close();
+            }
+        });
     }
 
     public CompletableFuture<T> select(Long id) {
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
+    
+            try {
+                Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", type.getName()));
+                selectQuery.setParameter("id", id);
+    
+                List<T> entities = selectQuery.list();
+                transaction.commit();
 
-        Class<?> entityClass = type.getClass();
-
-        Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", entityClass.getName()));
-        selectQuery.setParameter("id", id);
-
-        List<T> entities = selectQuery.list();
-        transaction.commit();
-        session.close();
-
-        return CompletableFuture.supplyAsync(() -> entities.get(0));
+                return entities.isEmpty() ? null : entities.get(0);
+            } catch (Exception e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                throw new RuntimeException(e);
+            } finally {
+                session.close();
+            }
+        });
     }
 
     public CompletableFuture<List<T>> selectMany() {
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        Class<?> entityClass = type.getClass();
-
-        Query selectQuery = session.createQuery(String.format("from %s", entityClass.getName()));
-
-        List<T> entities = selectQuery.list();
-        transaction.commit();
-        session.close();
-
-        return CompletableFuture.supplyAsync(() -> entities);
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
+    
+            Query selectQuery = session.createQuery(String.format("from %s", type.getName()));
+    
+            List<T> entities = selectQuery.list();
+            transaction.commit();
+            
+            return entities;
+        });
     }
 
     public CompletableFuture<Boolean> delete(Long id) {
-        Supplier<Boolean> supplier;
-        
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-            Class<?> entityClass = type.getClass();
-
-            Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", entityClass.getName()));
-            selectQuery.setParameter("id", id);
-
-            List<T> entities = selectQuery.list();
-            T entity = entities.get(0);
-
-            session.delete(entity);
-
-            transaction.commit();
-            session.close();
-
-            supplier = (() -> true);
-        } catch (Exception e) {
-            transaction.rollback();
-            supplier = (() -> false);
-        } finally {
-            session.close();
-        }
-
-        return CompletableFuture.supplyAsync(supplier);
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
+    
+            try {    
+                Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", type.getName()));
+                selectQuery.setParameter("id", id);
+    
+                List<T> entities = selectQuery.list();
+                T entity = entities.get(0);
+    
+                session.delete(entity);
+                transaction.commit();
+    
+                return true;
+            } catch (Exception e) {
+                transaction.rollback();
+                return false;
+            } finally {
+                session.close();
+            }
+        });
     }
 
     public CompletableFuture<Boolean> delete(T entity) {
-        Supplier<Boolean> supplier;
-        
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
-        try {
-            session.delete(entity);
-
-            transaction.commit();
-            session.close();
-
-            supplier = (() -> true);
-        } catch (Exception e) {
-            transaction.rollback();
-            supplier = (() -> false);
-        } finally {
-            session.close();
-        }
-
-        return CompletableFuture.supplyAsync(supplier);
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
+    
+            try {        
+                session.delete(entity);
+                transaction.commit();
+    
+                return true;
+            } catch (Exception e) {
+                transaction.rollback();
+                return false;
+            } finally {
+                session.close();
+            }
+        });
     }
 
-    public CompletableFuture<T> update(T entity) throws Exception {
-        Session session = sf.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
+    public CompletableFuture<T> update(T entity) {
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = sf.openSession();
+            Transaction transaction = session.beginTransaction();
+    
+            try {
+                session.update(entity);
+                transaction.commit();
 
-        try {
-            session.update(entity);
-            transaction.commit();
-        } catch (HibernateException he) {
-            transaction.rollback();
-            throw new Exception("Couldn't update entity.");
-        } finally {
-            session.close();
-        }
-
-        return CompletableFuture.supplyAsync(() -> entity);
+                return entity;
+            } catch (HibernateException he) {
+                transaction.rollback();
+                throw new RuntimeException("Couldn't update entity.");
+            } finally {
+                session.close();
+            }
+        });
     }
 }

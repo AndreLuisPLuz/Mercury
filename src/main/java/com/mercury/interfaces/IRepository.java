@@ -6,8 +6,8 @@ import java.util.concurrent.CompletableFuture;
 import com.mercury.entity.BaseEntity;
 
 public interface IRepository<T extends BaseEntity> {
-    CompletableFuture<T> create(T entity) throws Exception;
-    CompletableFuture<T> update(T entity) throws Exception;
+    CompletableFuture<T> create(T entity);
+    CompletableFuture<T> update(T entity);
     CompletableFuture<Boolean> delete(Long id);
     CompletableFuture<Boolean> delete(T entity);
     CompletableFuture<List<T>> selectMany();
