@@ -78,7 +78,7 @@
                   </Text>
                   <ImageView fitHeight="465.0" fitWidth="489.0" layoutX="23.0" layoutY="57.0" preserveRatio="true">
                      <image>
-                        <Image url="@./assets/img/logo.png" />
+                        <Image url="@../../assets/img/logo.png" />
                      </image>
                   </ImageView>
                </children>

@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginSceneController {
     
@@ -21,5 +22,8 @@ public class LoginSceneController {
     @FXML
     void submitLogin(ActionEvent event) {
         
+        // Como trocar de tela:
+        Stage stage = (Stage)btLogin.getScene().getWindow();
+        stage.setScene(Page.PROJECT.loadScene());
     }
 }
