@@ -71,10 +71,6 @@ public class RepositoryTest {
         assertDoesNotThrow(() -> repo.create(user).get());
 
         UserEntity returnedUser = assertDoesNotThrow(() -> repo.select(user.getId()).get());
-
-        System.out.println(String.format("user id: %d", user.getId()));
-        System.out.println(String.format("returned user id: %d", returnedUser.getId()));
-
         assertTrue(user.equals(returnedUser));
 
         repo.delete(user);
