@@ -25,14 +25,6 @@ public class LoginSceneController {
     private Button btLogin;
 
     @FXML
-    void submitLogin(ActionEvent event) {
-        
-        // Como trocar de tela:
-        Stage stage = (Stage)btLogin.getScene().getWindow();
-        stage.setScene(Page.PROJECT.loadScene());
-    }
-
-    @FXML
     private void btLoginClick(ActionEvent e) throws Exception {
         String username = tfUsername.getText();
         String password = tfPassword.getText();
@@ -41,6 +33,7 @@ public class LoginSceneController {
 
         try {
             isValidLogin = uService.isLoginAttemptValid(username, password).get();
+            System.out.println(isValidLogin);
         } catch (Exception ex) {
             isValidLogin = false;
         }

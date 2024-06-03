@@ -6,11 +6,12 @@ import com.mercury.entity.NodeEntity;
 import com.mercury.entity.RequestEntity;
 
 public interface IRequestService {
-    CompletableFuture<RequestEntity> insertRequest(RequestEntity request);
+    CompletableFuture<RequestEntity> insertRequest(String verb, String nickname);
 
     CompletableFuture<Boolean> deleteRequest(RequestEntity request);
     CompletableFuture<Boolean> deleteRequest(Long id);
 
+    // CompletableFuture<RequestEntity> updateRequestJson()
     CompletableFuture<RequestEntity> updateRequest(RequestEntity request);
 
     CompletableFuture<RequestEntity> fetchRequestById(Long id);
