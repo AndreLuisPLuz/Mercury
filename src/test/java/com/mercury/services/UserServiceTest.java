@@ -60,7 +60,7 @@ public class UserServiceTest {
 
         assertEquals(isValidLogin, true);
 
-        userService.deleteUser(user);
+        userService.deleteUser(user.getId());
     }
 
     @Test
@@ -75,6 +75,6 @@ public class UserServiceTest {
 
         assertFalse(isValidLogin);
 
-        userService.deleteUser(user);
+        userService.deleteUser(user.getId());
     }
 }

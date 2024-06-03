@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.mercury.classes.serializing.JsonSerializer;
+import com.mercury.interfaces.IJsonSerializable;
+
 @Entity
 @Table(name = "UserEntity")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity implements IJsonSerializable<UserEntity> {
     @Column (name = "Username")
     private String username;
 
@@ -66,5 +69,10 @@ public class UserEntity extends BaseEntity {
 
     public boolean equals(UserEntity u) {
         return (this.getId().equals(u.getId()));
+    }
+
+    public String serialize() {
+        JsonSerializer<UserEntity> serializer = new JsonSerializer<>(UserEntity.class);
+        return serializer.serialize(this);
     }
 }
