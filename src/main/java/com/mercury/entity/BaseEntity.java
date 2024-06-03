@@ -7,7 +7,7 @@ import javax.persistence.*;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue
-    private Long id;
+    protected Long id;
     
     @Column(name = "createdAt")
     @Temporal(TemporalType.DATE)
