@@ -47,8 +47,6 @@ public class Repository<T extends BaseEntity> implements IRepository<T> {
         return CompletableFuture.supplyAsync(() -> {
             Session session = sf.openSession();
             Transaction transaction = session.beginTransaction();
-
-            System.out.println("Id que entrou:" + id.toString());
     
             try {
                 Query selectQuery = session.createQuery(String.format("from %s t where t.id = :id", type.getName()));

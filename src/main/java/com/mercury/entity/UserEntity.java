@@ -64,7 +64,7 @@ public class UserEntity extends BaseEntity {
         return projects;
     }
 
-    public Boolean equals(UserEntity u) {
-        return this.getId() == u.getId();
+    public boolean equals(UserEntity u) {
+        return (this.getId().equals(u.getId()));
     }
 }

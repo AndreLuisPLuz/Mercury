@@ -11,7 +11,11 @@ public class UserServiceTest {
         UserService userService = new UserService();
         UserEntity user = new UserEntity("Trevis", "trevis@gmail.com", "trevis123");
 
-        assertEquals(userService.insertUser(user), true);
+        Boolean creationWasSuccessful = assertDoesNotThrow(() -> userService.insertUser(user).get());
+
+        assertTrue(creationWasSuccessful);
+
+        userService.deleteUser(user);
     }
 
     @Test
@@ -22,20 +26,26 @@ public class UserServiceTest {
         user.setPassword("niltis123");
 
         UserService userService = new UserService();
-        assertEquals(userService.insertUser(user), true);;
+        Boolean creationWasSuccessful = assertDoesNotThrow(() -> userService.insertUser(user).get());
+
+        assertTrue(creationWasSuccessful);
+
+        userService.deleteUser(user);
     }
 
     @Test
     public void fetchUserTest() {
-        UserEntity user = new UserEntity("Zézin", "zezin@email.com", "zezin123");
+        UserEntity user = new UserEntity("Joseph", "joseph@email.com", "joseph123");
         UserService userService = new UserService();
         userService.insertUser(user);
 
         UserEntity fetchedUser = assertDoesNotThrow(() -> {
-            return userService.getUserByUsername("Zézin").get();
+            return userService.getUserByUsername("Joseph").get();
         });
 
-        assertEquals(fetchedUser.equals(user), true);
+        assertTrue(fetchedUser.equals(user));
+
+        userService.deleteUser(user);
     }
 
     @Test
@@ -49,6 +59,8 @@ public class UserServiceTest {
         });
 
         assertEquals(isValidLogin, true);
+
+        userService.deleteUser(user);
     }
 
     @Test
@@ -61,6 +73,8 @@ public class UserServiceTest {
             return userService.isLoginAttemptValid("Joe", "joe123").get();
         });
 
-        assertEquals(isValidLogin, false);
+        assertFalse(isValidLogin);
+
+        userService.deleteUser(user);
     }
 }

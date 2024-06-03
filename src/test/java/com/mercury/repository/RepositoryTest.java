@@ -2,6 +2,7 @@ package com.mercury.repository;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +19,8 @@ public class RepositoryTest {
         });
 
         assertEquals(user.equals(result), true);
+
+        repo.delete(user);
     }
 
     @Test
@@ -29,15 +32,17 @@ public class RepositoryTest {
         Repository<UserEntity> repo = new Repository<>(UserEntity.class);
 
         assertDoesNotThrow(() -> repo.create(userToBeUpdated).get());
+        System.out.println(String.format("Entity ID insire test after repo.create: %d", userToBeUpdated.getId()));
 
         userToBeUpdated.setUsername(editedUsername);
         UserEntity editedUser = assertDoesNotThrow(() -> {
             return repo.update(userToBeUpdated).get();
         });
 
-        Boolean wasUpdateSuccesful = (userToBeUpdated.equals(editedUser) && userToBeUpdated.getUsername() != editedUser.getUsername());
+        assertTrue(userToBeUpdated.equals(editedUser));
+        assertTrue(editedUser.getUsername().equals(editedUsername));
 
-        assertEquals(wasUpdateSuccesful, true);
+        repo.delete(editedUser);
     }
 
     @Test
@@ -54,6 +59,8 @@ public class RepositoryTest {
 
         assertEquals(deletedWithSuccess, true);
         assertEquals(returnedUser, null);
+
+        repo.delete(user);
     }
 
     @Test
@@ -63,9 +70,13 @@ public class RepositoryTest {
 
         assertDoesNotThrow(() -> repo.create(user).get());
 
-        Long userId = user.getId();
-        UserEntity returnedUser = assertDoesNotThrow(() -> repo.select(userId).get());
+        UserEntity returnedUser = assertDoesNotThrow(() -> repo.select(user.getId()).get());
 
-        assertEquals(user.equals(returnedUser), true);
+        System.out.println(String.format("user id: %d", user.getId()));
+        System.out.println(String.format("returned user id: %d", returnedUser.getId()));
+
+        assertTrue(user.equals(returnedUser));
+
+        repo.delete(user);
     }
 }

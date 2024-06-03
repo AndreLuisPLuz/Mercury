@@ -8,4 +8,6 @@ public interface IUserService {
     CompletableFuture<Boolean> insertUser(UserEntity newUser);
     CompletableFuture<Boolean> isLoginAttemptValid(String username, String password);
     CompletableFuture<UserEntity> getUserByUsername(String username);
+    CompletableFuture<Boolean> deleteUser(UserEntity user);
+    CompletableFuture<Boolean> deleteUser(Long id);
 }

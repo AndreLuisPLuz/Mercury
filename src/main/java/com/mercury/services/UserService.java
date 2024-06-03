@@ -24,6 +24,26 @@ public class UserService implements IUserService {
         });
     }
 
+    public CompletableFuture<Boolean> deleteUser(UserEntity user) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return repo.delete(user).get();
+            } catch (Exception e) {
+                return false;
+            }
+        });
+    }
+
+    public CompletableFuture<Boolean> deleteUser(Long id) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return repo.delete(id).get();
+            } catch (Exception e) {
+                return false;
+            }
+        });
+    }
+
     public CompletableFuture<Boolean> isLoginAttemptValid(String username, String password) {
         return CompletableFuture.supplyAsync(() -> {
             try {
