@@ -13,6 +13,17 @@ public class UserService implements IUserService {
 
     public UserService() { }
 
+    public CompletableFuture<Boolean> insertUser(UserEntity newUser) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                UserEntity result = repo.create(newUser).get();
+                return (result != null);
+            } catch (Exception e) {
+                return false;
+            }
+        });
+    }
+
     public CompletableFuture<Boolean> isLoginAttemptValid(String username, String password) {
         return CompletableFuture.supplyAsync(() -> {
             try {

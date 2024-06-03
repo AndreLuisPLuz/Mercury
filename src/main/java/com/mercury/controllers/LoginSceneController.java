@@ -2,7 +2,6 @@ package com.mercury.controllers;
 
 import com.mercury.entity.UserEntity;
 import com.mercury.enums.Page;
-import com.mercury.repository.Repository;
 import com.mercury.services.UserService;
 
 import javafx.event.ActionEvent;
