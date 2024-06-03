@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 import com.mercury.entity.UserEntity;
-import com.mercury.interfaces.IUserService;
+import com.mercury.interfaces.services.IUserService;
 import com.mercury.repository.Repository;
 
 public class UserService implements IUserService {

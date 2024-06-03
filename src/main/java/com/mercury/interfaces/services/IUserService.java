@@ -1,4 +1,4 @@
-package com.mercury.interfaces;
+package com.mercury.interfaces.services;
 
 import java.util.concurrent.CompletableFuture;
 
