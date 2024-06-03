@@ -35,16 +35,9 @@ public class UserEntity extends BaseEntity implements IJsonSerializable<UserEnti
         this.password = password;
     }
 
-    public UserEntity(String jsonStr) {
-        super();
-
+    public static UserEntity createFromJson (String jsonStr) {
         JsonSerializer<UserEntity> serializer = new JsonSerializer<>(UserEntity.class);
-        UserEntity user = serializer.deserialize(jsonStr);
-        
-        this.id = user.id;
-        this.username = user.username;
-        this.email = user.email;
-        this.password = user.password;
+        return serializer.deserialize(jsonStr);
     }
     
     public String getUsername() {
