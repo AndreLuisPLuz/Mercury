@@ -42,7 +42,7 @@ public class RepositoryTest {
         assertTrue(userToBeUpdated.equals(editedUser));
         assertTrue(editedUser.getUsername().equals(editedUsername));
 
-        repo.delete(editedUser);
+        repo.delete(editedUser.getId());
     }
 
     @Test
